@@ -1,0 +1,9 @@
+---
+- hosts: web
+  become: yes
+  tasks:
+         - name: modified for class apache is installed
+           apt: name=apache2 state=installed
+
+         - name: start httpd
+           service: name=apache2 state=started enabled=yes

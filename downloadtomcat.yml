@@ -1,0 +1,7 @@
+---
+- hosts: web
+  become: yes
+
+  tasks:
+          - name: download tomcat package
+            get_url: url=http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.43/bin/apache-tomcat-8.5.43.tar.gz dest=/root/
