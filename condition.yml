@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+          - name: install tomcat
+            apt: name=tomcat8 state=present
+            when: ansible_facts['os_family'] == "centOS"
+
+          - name: start tomcat
+            service: name=tomcat8 state=started enabled=yes
+            when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "6") or
+          (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == "7")

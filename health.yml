@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+          - name: run ping command to check server reaching or not
+            ping:
+
+          - name: checck memory of client
+            shell: free -h
+
+          - name: create new user in every client
+            user: name=testuser 

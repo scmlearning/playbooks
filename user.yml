@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: false
+
+  vars:
+          name: batch930am
+          uid: 1212
+          comment: created for abtch9 am
+
+
+  tasks:
+          - name: create user in all clients
+            user: name={{name}} uid={{uid}} 
+
+          - name: list the user details
+            shell: cat /etc/passwd
+

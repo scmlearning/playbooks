@@ -1,0 +1,36 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: false
+
+
+  vars:
+          tomcat_url: http://apachemirror.wuchna.com/tomcat/tomcat-8/v8.5.54/bin/apache-tomcat-8.5.54.tar.gz
+          tomcat_package: apache-tomcat-8.5.54.tar.gz
+          java_package: openjdk-8-jdk
+          nginx_package: nginx
+          apache_package: apache2
+  tasks:
+          - name: Install java
+            apt: name={{java_package}} state=present
+
+          - name: Download tomcat
+            get_url: url={{tomcat_url}} dest=/root
+            notify:
+                    - start tomcat
+
+          - name: extract tomcat tar file
+            unarchive: path=/root/{{tomcat_package}} dest=/root remote_src=true
+            notify:
+                    - start tomcat
+
+          - name: copy war file to all client
+            copy: src=/root/vprofile.war dest=/root/apache-tomcat-8.5.54/webapps/vprofile.war
+            notify:
+                    - start tomcat
+          
+
+
+   handlers:
+           - name: start tomcat
+            shell: /root/apache-tomcat-8.5.54/bin/startup.sh remote_src=true

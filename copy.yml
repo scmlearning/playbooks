@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: false
+
+  tasks:
+          - name: copy file from controller to all clients
+            copy: src=/home/slave/project2/vprofile/target/vprofile-v1.war dest=/home/ubuntu/vprofile-v1.war 
+
+        
