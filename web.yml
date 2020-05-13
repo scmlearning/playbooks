@@ -15,3 +15,35 @@
 
         - name: create logs directory
           shell: mkdir testdir1
+
+        - name: include nother playbook called nginx.yml
+          include: nginx.yml
+
+        - import_playbook: nginx.yml
+
+        - include:
+
+                - nginx.yml
+                - web.yml
+
+
+---
+- hosts: all
+  become: yes
+  gather_facts: false
+
+  tasks:
+          - name: install mysql package
+            apt: name=mysql state=present
+
+
+
+---
+- hosts: all
+  become: yes
+
+  tasks:
+          - name: install tomcat
+            apt: name=tomcat state=present
+
+       
